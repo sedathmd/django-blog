@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title%} Main Page {% endblock %}
+
+
+{% block content %}
+
+{% for post in posts%}
+<div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{post.image.url}}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <!--a href 53-->
+        <h5 class="card-title"><a href="{% url 'detail' slug=post.slug %}">{{ post.title }}</a></h5>
+        <!--safe ve truncatechars template filter-->
+        <p class="card-text">{{ post.content|safe|truncatechars_html:150 }}</p>
+        <p class="card-text"><small class="text-body-secondary">Last updated {{ post.update_date|timesince }}</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% empty %}
+<p>There are no post</p>
+{% endfor %}
+
+<!--pagination-->
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-end">
+    {% if posts.has_previous %}
+    <li class="page-item">
+      <li class="page-item">
+        <a class="page-link" href="?p=1">First Page</a>
+      </li>
+      <a class="page-link" href="?p={{posts.previous_page_number}}">Previous</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link">First Page</a>
+    </li>
+    <li class="page-item disabled">
+      <a class="page-link">Previous</a>
+    </li>
+    {% endif %}
+    
+    <li class="page-item"><a class="page-link" href="">{{posts.number}}</a></li>
+    
+    {% if posts.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?p={{posts.next_page_number}}">Next</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="?p={{posts.paginator.num_pages}}">Last Page</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link">Next</a>
+    </li>
+    <li class="page-item disabled">
+      <a class="page-link">Last Page</a>
+    </li>
+    {% endif %}
+    
+  </ul>
+</nav>
+
+<!--pagination end-->
+{% endblock  %}
+ 

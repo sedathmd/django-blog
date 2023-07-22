@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title%} Create a Post {% endblock %}
+
+{% block content%} 
+<!-- buradaki add-post url'in adi -->
+<form action="{% url 'add-post' %}" enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    <!-- alttaki ckeditor icin -->
+    {{ form.media }} 
+    {{ form.as_p }}  
+    <input type="submit" class="btn btn-danger mt-3 mb-3" value="Create"/>
+</form>
+{% endblock %}

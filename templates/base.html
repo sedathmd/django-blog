@@ -1,0 +1,42 @@
+<!-- {{name}} -->
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  </head>
+  <body>
+    <!-- navbar -->
+    {% include 'components/navbar.html' %}
+    <!-- navbar-end -->
+    
+    <div class="container mt-3">
+      <!-- body -->
+      <div class="row">
+        <!--left-->
+        <div class="col-sm-9">
+            {% block content %}{% endblock %}
+        </div>
+         <!--left-end-->
+        
+        <!--right-->
+        {% if request.user.is_authenticated %}
+          {% include 'components/sidebar.html' %}
+        {%endif%}
+      </div>
+      <!--right-end-->
+      
+
+      <!-- footer -->
+      {% include 'components/footer.html' %}
+    </div>
+    <!-- Lottie 83 -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <!-- Lottie 83 end -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  </body>
+</html>
